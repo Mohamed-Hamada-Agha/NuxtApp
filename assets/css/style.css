@@ -4,7 +4,7 @@ body {
     background-color: rgb(241, 239, 239);
     color: black;
     direction: rtl;
-}
+} 
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;

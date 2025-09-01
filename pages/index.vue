@@ -1,5 +1,4 @@
-<!-- /pages/index.vue -->
-<template>
+  <template>
   <div dir="rtl" class="m-4 p-4 ">
     
       <h2 class="text-3xl font-bold mb-4">الرئيسية</h2>

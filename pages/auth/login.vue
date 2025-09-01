@@ -13,14 +13,15 @@
         <!-- مدخل رقم الجوال -->
           <div>
             <label for="phone" class="block mb-1 font-medium">الجوال</label>
-            <div class="flex border rounded overflow-hidden">
+            <div class="flex selectparent border border-black rounded-md">
               <input
                 id="phone"
                 v-model="form.phone"
                 type="tel"
                 inputmode="tel"
                 placeholder="ادخل رقم الجوال"
-                class="flex-1 p-3 outline-none text-right border border-black bg-white"
+                dir="rtl"
+                class="flex-1 bg-white p-3 "
                 required
               />  
       
@@ -37,15 +38,15 @@
                   <img :src="value.flag" class="w-6 h-4 rounded-sm border" alt="" />
                   <span class="text-sm">{{ value.dial }}</span>
                 </div>
-                <span v-else class="text-gray-400">966+</span>
+                <span v-else class="text-black">966+</span>
               </template>
 
               <!-- عناصر القائمة -->
               <template #option="{ option }">
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 bg-white">
                   <img :src="option.flag" class="w-6 h-4 rounded-sm border" alt="" />
-                  <span class="text-sm">{{ option.name }}</span>
-                  <span class="text-xs text-gray-500">({{ option.dial }})</span>
+                  <span class="text-sm text-black">{{ option.name }}</span>
+                  <span class="text-xs text-black">({{ option.dial }})</span>
                 </div>
               </template>
            </Select>
@@ -65,10 +66,9 @@
     </main>
    
     <aside class="bg-[#f5e5c8] w-[509px] relative flex items-center justify-center">
-    <div class=" absolute top-4 left-12 inline-flex p-2 rounded-md">
+    <div class="absolute top-4 left-12 inline-flex p-2 rounded-md text-black">
       <InputGroup>
-            <Select v-model="selectedCity" :options="cities" optionLabel="code" placeholder="العربية" dir="rtl"
-             class="bg-transparent" />
+            <Select v-model="selectedCity" :options="cities" optionLabel="code" placeholder="العربية" dir="rtl"  />
         </InputGroup>
       </div>
 
@@ -124,7 +124,7 @@
               @keydown.delete="handleBackspace(index, $event)"
               maxlength="1"
               ref="otpInputs"
-              class="w-16 h-16 text-2xl text-center border-2 border-gray-700 rounded-lg"
+              class="w-16 h-16 text-2xl text-center border-2 border-gray-700 rounded-lg bg-white"
             />
           </div>
           <!-- زر التفعيل الأصفر -->
@@ -161,7 +161,7 @@
           <p class="text-gray-800/70 mb-6">فى انتظار موافقة الادارة</p>
 
           <button 
-            @click="navigateTo('/login')"
+            @click="navigateTo('/pages/index')"
             class="w-full py-3 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-black font-bold"
           >
             تسجيل الدخول
@@ -177,6 +177,9 @@
 import { ref } from "vue"
 import { useI18n } from "vue-i18n"
 const { locale } = useI18n()
+
+// import { navigateTo } from '#app'
+//   navigateTo('') 
 
 const selectedCity = ref();
 const cities = ref([
@@ -279,8 +282,8 @@ const handleSubmit = () => {
     isLoading.value = true
     setTimeout(() => {
       isLoading.value = false
-      showVerifyModal.value = false  // اغلاق مودال OTP
-      showDialog.value = true        // فتح Dialog النهائي بالمواصفات المطلوبة
+      showVerifyModal.value = false 
+      showDialog.value = true 
     }, 600)
   } else {
     alert("رمز التحقق غير صحيح")
@@ -291,3 +294,15 @@ const closeModal = () => {
   showVerifyModal.value = false
 }
 </script>
+
+<style scoped>
+.p-select.p-variant-filled {
+  background-color: transparent !important;
+  color: black;
+  border: none
+}
+.p-select-label.p-placeholder {
+    color: var(--p-select-placeholder-color); 
+}
+
+</style>

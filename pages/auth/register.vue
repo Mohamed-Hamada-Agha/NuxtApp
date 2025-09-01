@@ -29,26 +29,42 @@
 
           <div>
             <label for="phone" class="block mb-1 font-medium">الجوال</label>
-            <div class="flex border overflow-hidden rounded-md">
+         <div class="flex selectparent border border-black rounded-md">
               <input
                 id="phone"
                 v-model="form.phone"
                 type="tel"
                 inputmode="tel"
                 placeholder="ادخل رقم الجوال"
-                class="flex-1 p-3 outline-none text-right border border-black bg-white"
+                dir="rtl"
+                class="flex-1 bg-white p-3 "
                 required
               />  
-              <div class="flex items-center bg-white">
-                <Dropdown
-              v-model="selectedCountry"
+      
+           <Select
+              v-model="selected"
               :options="countries"
-              optionLabel="code"
-              :itemTemplate="countryTemplate"
-              dir="ltr"
-              class="p-1 bg-transparent"
-            />
-              </div>    
+              optionLabel="name"
+              dir="rtl"
+            >
+              <!-- العنصر المختار داخل الحقل -->
+              <template #value="{ value }">
+                <div v-if="value" class="flex items-center gap-2">
+                  <img :src="value.flag" class="w-6 h-4 rounded-sm border" alt="" />
+                  <span class="text-sm">{{ value.dial }}</span>
+                </div>
+                <span v-else class="text-gray-400">966+</span>
+              </template>
+
+              <!-- عناصر القائمة -->
+              <template #option="{ option }">
+                <div class="flex items-center gap-2">
+                  <img :src="option.flag" class="w-6 h-4 rounded-sm border" alt="" />
+                  <span class="text-sm">{{ option.name }}</span>
+                  <span class="text-xs text-gray-500">({{ option.dial }})</span>
+                </div>
+              </template>
+           </Select>
             </div>
           </div>
 
@@ -129,8 +145,7 @@
 
         <div class=" absolute top-4 left-12 inline-flex p-2 rounded-md">
       <InputGroup>
-            <Select v-model="selectedCity" :options="cities" optionLabel="label" placeholder="العربية" dir="rtl"
-             class="bg-transparent text-white" />
+            <Select v-model="selectedCity" :options="cities" optionLabel="label" placeholder="العربية" dir="rtl" />
         </InputGroup>
       </div>
       </div>
@@ -148,8 +163,8 @@ const cities = ref([
 ]);
 
 const countries = [
-  {code: '+966', flag: 'https://flagcdn.com/w40/sa.png'},
-  {code: '+20', flag: 'https://flagcdn.com/w40/gb.png' }
+  { name: 'السعودية', dial: '+966', flag: 'https://flagcdn.com/w40/sa.png' },
+  { name: 'مصر',     dial: '+20',  flag: 'https://flagcdn.com/w40/eg.png' },
 ]
 
 definePageMeta({
@@ -170,3 +185,19 @@ function onSubmit() {
   console.log('Form Submit =>', { ...form })
 }
 </script>
+
+<style scoped>
+.p-select.p-variant-filled {
+  background-color: white !important;
+  color: black;
+  border: none;
+}
+.p-select.p-variant-filled {
+  background-color: transparent !important;
+  color: black;
+  border: none
+}
+.p-select-label.p-placeholder {
+    color: var(--p-select-placeholder-color); 
+}
+</style>

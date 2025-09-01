@@ -4,12 +4,12 @@
         <img src="/assets/images/pell.png" class="">
       </div>
 
-    <div class=" top-6 left-6 flex items-center gap-1 text-lg font-bold">
-      <span>العربية</span>
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-      </svg>
-    </div>
+    <div class="  top-4 left-8 inline-flex p-2 rounded-md">
+      <InputGroup>
+            <Select v-model="selectedCity" :options="cities" optionLabel="code" placeholder="العربية" dir="rtl"
+             class="bg-transparent text-white" />
+        </InputGroup>
+     </div>
     
     <div class="flex gap-2 items-center justify-center">
       <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-">
@@ -21,5 +21,29 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n"
+const { locale } = useI18n()
 
+const selectedCity = ref();
+const cities = ref([
+  { name: 'ar', code: 'العربية'},
+  { name: 'en', code: 'English'}
+]);
 </script>
+
+<style scoped>
+.p-select.p-variant-filled {
+  background-color: white !important;
+  color: black;
+  border: none;
+}
+.p-select.p-variant-filled {
+  background-color: transparent !important;
+  color: black;
+  border: none
+}
+.p-select-label.p-placeholder {
+    color: var(--p-select-placeholder-color); 
+}
+
+</style>
